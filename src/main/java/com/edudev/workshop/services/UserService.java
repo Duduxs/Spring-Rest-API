@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edudev.workshop.domain.User;
+import com.edudev.workshop.dto.UserDTO;
 import com.edudev.workshop.repository.UserRepository;
 import com.edudev.workshop.services.exception.ObjectNotFoundException;
 
@@ -24,4 +25,18 @@ public class UserService {
 		Optional<User> user = repo.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("Id not exists"));
 	}
+	
+	public User insert(User user) {
+		 return repo.insert(user);
+	}
+	
+	public User fromDTO(UserDTO objDTO) {
+		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
+	}
+	
+	public void delete(String id) {
+		 findById(id);
+		 repo.deleteById(id);
+	}
+	
 }

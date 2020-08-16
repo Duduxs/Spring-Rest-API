@@ -1,5 +1,6 @@
 package com.edudev.workshop.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class PostService {
 		Optional<Post> p1 = postRepository.findById(id);
 		
 		return p1.orElseThrow(() -> new ObjectNotFoundException("Id not exists"));
+	}
+	
+	public List<Post> findByTitle(String title){
+		return postRepository.findByTitleContainingIgnoreCase(title);
 	}
 }

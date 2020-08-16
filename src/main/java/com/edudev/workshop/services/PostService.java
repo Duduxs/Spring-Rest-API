@@ -16,6 +16,10 @@ public class PostService {
 	@Autowired
 	PostRepository postRepository;
 	
+	public List<Post> findAll(){
+		return postRepository.findAll();
+	}
+	
 	public Post findById(String id) {
 		Optional<Post> p1 = postRepository.findById(id);
 		
@@ -24,5 +28,9 @@ public class PostService {
 	
 	public List<Post> findByTitle(String title){
 		return postRepository.findByTitle(title);
+	}
+	
+	public List<Post> fullSearch(String text){
+		return postRepository.fullSearch(text);
 	}
 }

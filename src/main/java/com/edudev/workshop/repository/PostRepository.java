@@ -11,8 +11,11 @@ import com.edudev.workshop.domain.Post;
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
 
-	@Query("{ 'title': {$regex: ?0, $pattern: '$options': 'i' } }")
+	@Query("{ 'title': {$regex: ?0,'$options': 'i' } }")
 	List<Post> findByTitle(String text);
 	
 	List<Post> findByTitleContainingIgnoreCase(String text);
+	
+	@Query("{ $or: [ {'title': {$regex: ?0,'$options': 'i' } }, {'body': {$regex: ?0,'$options': 'i' } }, {'comments.text': {$regex: ?0,'$options': 'i' } } ] }")
+	List<Post> fullSearch(String text);
 }
